@@ -1,0 +1,20 @@
+.DS_Store
+/Life is Unfair/Library/
+/Life is Unfair/Logs/
+/Life is Unfair/obj/
+/Life is Unfair/Packages/
+/Life is Unfair/ProjectSettings/
+/Life is Unfair/Temp/
+/Life is Unfair/UserSettings/
+/Life is Unfair/Assembly-CSharp-firstpass.csproj
+/Life is Unfair/Assembly-CSharp.csproj
+/Life is Unfair/Life is Unfair.sln
+/Life is Unfair/packages.config
+/Life is Unfair/.vs/
+/Life is Unfair/.vsconfig
+/Life is Unfair/Assets/Plugins/
+/Life is Unfair/Assets/Resources/
+/Life is Unfair/Assets/TextMesh Pro/
+/Life is Unfair/Assets/Plugins.meta
+/Life is Unfair/Assets/Resources.meta
+/Life is Unfair/Assets/TextMesh Pro.meta
