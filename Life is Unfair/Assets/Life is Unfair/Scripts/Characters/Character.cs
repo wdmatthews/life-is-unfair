@@ -103,7 +103,7 @@ namespace LifeIsUnfair.Characters
             if (_isOnLadder) velocity.y = _verticalInput * _movementSpeed;
 
             if (_isGrounded && Mathf.Approximately(velocity.y, 0)
-                || !wasGrounded && _isGrounded && _isJumping)
+                || !wasGrounded && _isGrounded)
             {
                 _isJumping = false;
                 _isBouncing = false;
