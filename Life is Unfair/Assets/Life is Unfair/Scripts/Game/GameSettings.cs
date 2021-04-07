@@ -5,7 +5,6 @@ namespace LifeIsUnfair.Game
     [System.Serializable]
     public class GameSettings
     {
-        public float Volume = 1;
         public bool ShowCharacterLabels = false;
         public Color TileColor = new Color(25 / 255f, 25 / 255f, 25 / 255f);
         public Color MovingPlatformColor = new Color(25 / 255f, 25 / 255f, 25 / 255f);

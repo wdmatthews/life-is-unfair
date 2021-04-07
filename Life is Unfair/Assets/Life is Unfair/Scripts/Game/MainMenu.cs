@@ -17,7 +17,6 @@ namespace LifeIsUnfair.Game
         [SerializeField] private Image _windowBackground = null;
         [SerializeField] private Transform _settingsWindow = null;
         [SerializeField] private Transform _creditsWindow = null;
-        [SerializeField] private Slider _volumeSlider = null;
         [SerializeField] private Toggle _characterLabelsToggle = null;
         [SerializeField] private TMP_InputField _tileR = null;
         [SerializeField] private TMP_InputField _tileG = null;
@@ -59,7 +58,6 @@ namespace LifeIsUnfair.Game
             if (PlayerPrefs.HasKey("Game Settings"))
             {
                 _settings = JsonUtility.FromJson<GameSettings>(PlayerPrefs.GetString("Game Settings"));
-                _volumeSlider.value = _settings.Volume;
                 _characterLabelsToggle.isOn = _settings.ShowCharacterLabels;
                 _tileR.text = ColorComponentToString(_settings.TileColor.r);
                 _tileG.text = ColorComponentToString(_settings.TileColor.g);
@@ -115,7 +113,6 @@ namespace LifeIsUnfair.Game
 
         public void SaveSettings()
         {
-            _settings.Volume = _volumeSlider.value;
             _settings.ShowCharacterLabels = _characterLabelsToggle.isOn;
             _settings.TileColor = TextToColor(_tileR.text, _tileG.text, _tileB.text);
             _settings.MovingPlatformColor = TextToColor(_movingPlatformR.text, _movingPlatformG.text, _movingPlatformB.text);

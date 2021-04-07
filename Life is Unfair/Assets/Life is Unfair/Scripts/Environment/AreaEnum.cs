@@ -4,5 +4,7 @@ namespace LifeIsUnfair.Environment
     {
         StartingArea,
         BeneficialFall,
+        TheMaze,
+        EndingArea,
     }
 }
