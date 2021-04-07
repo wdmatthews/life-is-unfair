@@ -86,6 +86,8 @@ namespace LifeIsUnfair.Game
             if (AreaManager.IsLoading) return;
             _eventSubscriber.Trigger("load-area", $"{(int)AreaManager.CurrentArea}|{AreaManager.CurrentAreaEntrance}");
         }
+
+        public static void EraseSave() => PlayerPrefs.DeleteKey("Game Save");
         #endregion
 
         #region Private Methods

@@ -2,6 +2,7 @@ namespace LifeIsUnfair.Environment
 {
     public enum AreaEnum
     {
-        StartingArea
+        StartingArea,
+        BeneficialFall,
     }
 }

@@ -23,6 +23,7 @@ namespace LifeIsUnfair.Game
         public static int CurrentAreaEntrance { get; private set; } = 0;
         private int _areaToLoadEntrance = 0;
         public static bool IsLoading { get; private set; } = false;
+        public static bool PlayerIsDead = false;
         #endregion
 
         #region Unity Events
@@ -49,6 +50,14 @@ namespace LifeIsUnfair.Game
         #region Private Methods
         private void StartLoadArea()
         {
+            if (PlayerIsDead)
+            {
+                PlayerIsDead = false;
+                GameManager.EraseSave();
+                SceneManager.LoadSceneAsync("Game Over");
+                return;
+            }
+
             Scene currentArea = SceneManager.GetSceneByName(CurrentArea.ToString());
 
             if (currentArea.IsValid())
