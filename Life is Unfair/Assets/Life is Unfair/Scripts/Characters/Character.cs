@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 using EventSystem;
 using LifeIsUnfair.Environment;
 
@@ -10,6 +11,8 @@ namespace LifeIsUnfair.Characters
     public class Character : MonoBehaviour
     {
         #region Fields
+        private const float _fadeAnimationTime = 0.15f;
+
         [SerializeField] private bool _isPlayer = false;
         [SerializeField] private CharacterLetter _letter = CharacterLetter.A;
         [SerializeField] private EventSubscriber _eventSubscriber = null;
@@ -149,11 +152,15 @@ namespace LifeIsUnfair.Characters
             _outlineRenderer.color = new Color(newColor.r, newColor.g, newColor.b, _outlineRenderer.color.a);
         }
 
-        public void SetAlpha(float newAlpha)
+        public void SetAlpha(float newAlpha, bool shouldAnimate)
         {
-            Color color = _renderer.color;
-            color.a = newAlpha;
-            _renderer.color = color;
+            if (shouldAnimate) _renderer.DOFade(newAlpha, _fadeAnimationTime);
+            else
+            {
+                Color color = _renderer.color;
+                color.a = newAlpha;
+                _renderer.color = color;
+            }
         }
 
         public void SetLabelColor(Color newColor)

@@ -59,6 +59,14 @@ namespace LifeIsUnfair.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""34b5521a-86b1-4bcb-9bc7-450d3799a7e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -160,6 +168,17 @@ namespace LifeIsUnfair.Input
                     ""action"": ""Resume"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da3a0e72-cd0a-4663-9843-21b2c03dfd7b"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -173,6 +192,7 @@ namespace LifeIsUnfair.Input
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
             m_Player_Resume = m_Player.FindAction("Resume", throwIfNotFound: true);
+            m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -227,6 +247,7 @@ namespace LifeIsUnfair.Input
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Pause;
         private readonly InputAction m_Player_Resume;
+        private readonly InputAction m_Player_Reload;
         public struct PlayerActions
         {
             private @Controls m_Wrapper;
@@ -236,6 +257,7 @@ namespace LifeIsUnfair.Input
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputAction @Resume => m_Wrapper.m_Player_Resume;
+            public InputAction @Reload => m_Wrapper.m_Player_Reload;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -260,6 +282,9 @@ namespace LifeIsUnfair.Input
                     @Resume.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResume;
                     @Resume.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResume;
                     @Resume.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResume;
+                    @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                    @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                    @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -279,6 +304,9 @@ namespace LifeIsUnfair.Input
                     @Resume.started += instance.OnResume;
                     @Resume.performed += instance.OnResume;
                     @Resume.canceled += instance.OnResume;
+                    @Reload.started += instance.OnReload;
+                    @Reload.performed += instance.OnReload;
+                    @Reload.canceled += instance.OnReload;
                 }
             }
         }
@@ -290,6 +318,7 @@ namespace LifeIsUnfair.Input
             void OnJump(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
             void OnResume(InputAction.CallbackContext context);
+            void OnReload(InputAction.CallbackContext context);
         }
     }
 }

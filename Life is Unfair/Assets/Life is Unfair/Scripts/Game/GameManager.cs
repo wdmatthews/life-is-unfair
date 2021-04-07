@@ -23,7 +23,7 @@ namespace LifeIsUnfair.Game
 
         private GameSettings _settings = new GameSettings();
         private string _savedSettings = "";
-        private GameSaveData _saveData = new GameSaveData();
+        public static GameSaveData SaveData { get; private set; } = new GameSaveData();
         private string _savedGame = "";
         private bool _isPaused = false;
         private bool _pauseAnimationIsDone = false;
@@ -34,8 +34,8 @@ namespace LifeIsUnfair.Game
         {
             _eventSubscriber.Subscribe("finish-load-area", (int entrance) =>
             {
-                _saveData.CurrentArea = AreaManager.CurrentArea;
-                _saveData.CurrentAreaEntrance = entrance;
+                SaveData.CurrentArea = AreaManager.CurrentArea;
+                SaveData.CurrentAreaEntrance = entrance;
                 SaveGame();
                 _eventSubscriber.Trigger("load-settings", _savedSettings);
                 _eventSubscriber.Trigger("load-game", _savedGame);
@@ -80,6 +80,12 @@ namespace LifeIsUnfair.Game
         {
             SceneManager.LoadSceneAsync("Main Menu");
         }
+
+        public void Reload()
+        {
+            if (AreaManager.IsLoading) return;
+            _eventSubscriber.Trigger("load-area", $"{(int)AreaManager.CurrentArea}|{AreaManager.CurrentAreaEntrance}");
+        }
         #endregion
 
         #region Private Methods
@@ -104,12 +110,12 @@ namespace LifeIsUnfair.Game
             if (PlayerPrefs.HasKey("Game Save"))
             {
                 _savedGame = PlayerPrefs.GetString("Game Save");
-                _saveData = JsonUtility.FromJson<GameSaveData>(_savedGame);
+                SaveData = JsonUtility.FromJson<GameSaveData>(_savedGame);
             }
             else
             {
-                _saveData = new GameSaveData();
-                _savedGame = JsonUtility.ToJson(_saveData);
+                SaveData = new GameSaveData();
+                _savedGame = JsonUtility.ToJson(SaveData);
             }
 
             _eventSubscriber.Trigger("initial-load-game", _savedGame);
@@ -117,7 +123,7 @@ namespace LifeIsUnfair.Game
 
         private void SaveGame()
         {
-            _savedGame = JsonUtility.ToJson(_saveData);
+            _savedGame = JsonUtility.ToJson(SaveData);
             PlayerPrefs.SetString("Game Save", _savedGame);
             PlayerPrefs.Save();
             _saveMessage.gameObject.SetActive(true);

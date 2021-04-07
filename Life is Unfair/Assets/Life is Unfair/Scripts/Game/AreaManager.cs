@@ -20,7 +20,9 @@ namespace LifeIsUnfair.Game
 
         public static AreaEnum CurrentArea { get; private set; } = AreaEnum.StartingArea;
         private AreaEnum _areaToLoad = AreaEnum.StartingArea;
+        public static int CurrentAreaEntrance { get; private set; } = 0;
         private int _areaToLoadEntrance = 0;
+        public static bool IsLoading { get; private set; } = false;
         #endregion
 
         #region Unity Events
@@ -28,6 +30,7 @@ namespace LifeIsUnfair.Game
         {
             _eventSubscriber.Subscribe("load-area", (string data) =>
             {
+                IsLoading = true;
                 string[] dataParts = data.Split('|');
                 _areaToLoad = (AreaEnum)int.Parse(dataParts[0]);
                 _areaToLoadEntrance = int.Parse(dataParts[1]);
@@ -64,6 +67,8 @@ namespace LifeIsUnfair.Game
         private void FinishLoadArea(AsyncOperation operation)
         {
             CurrentArea = _areaToLoad;
+            CurrentAreaEntrance = _areaToLoadEntrance;
+            IsLoading = false;
             _areaTransition.DOFade(0, _areaTransitionTime).From(1).OnComplete(
                 () => _areaTransitionCanvas.enabled = false);
             _eventSubscriber.Trigger("finish-load-area", _areaToLoadEntrance);

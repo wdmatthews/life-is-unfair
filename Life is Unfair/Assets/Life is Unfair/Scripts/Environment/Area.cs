@@ -93,11 +93,13 @@ namespace LifeIsUnfair.Environment
         private void LoadGameSave(string savedGame)
         {
             GameSaveData saveData = JsonUtility.FromJson<GameSaveData>(savedGame);
-            _player.Character.SetAlpha(saveData.PlayerLight);
+            _player.Character.SetAlpha(saveData.PlayerLight, false);
 
             foreach (Character character in _characters)
             {
-                character.SetAlpha(saveData.CharacterLight[(int)character.Letter]);
+                float alpha = saveData.CharacterLight[(int)character.Letter];
+                character.SetAlpha(alpha, false);
+                if (Mathf.Approximately(alpha, 0)) character.gameObject.SetActive(false);
             }
         }
         #endregion
